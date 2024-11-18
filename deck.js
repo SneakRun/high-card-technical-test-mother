@@ -32,6 +32,20 @@ class Card {
     this.suit = suit;
     this.value = value;
   }
+
+  get colour() {
+    return this.suit === '♣' || this.suit === '♠' ? 'black' : 'red';
+  }
+
+  // Method to get the HTML representation of the card
+  getHTML() {
+    const cardDiv = document.createElement('div');
+    cardDiv.innerText = this.suit;
+    cardDiv.classList.add("card", this.colour);
+    cardDiv.dataset.value = `${this.value} ${this.suit}`;
+    return cardDiv;
+  }
+
 }
 
 // Function to create a deck of cards
