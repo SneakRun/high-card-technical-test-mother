@@ -15,6 +15,15 @@ export default class Deck {
     return this.cards.length;
   }
 
+  // Method to remove and return the last card from the deck
+  pop() {
+    return this.cards.pop();
+  }
+
+  push(card) {
+    this.cards.push(card);
+  }
+
   // Method to shuffle the deck of cards using the Fisher-Yates shuffle algorithm
   shuffle() {
     for (let i = this.numberOfCards - 1; i > 0; i--) {
@@ -33,6 +42,7 @@ class Card {
     this.value = value;
   }
 
+  // Getter method to get the colour of the card
   get colour() {
     return this.suit === '♣' || this.suit === '♠' ? 'black' : 'red';
   }
