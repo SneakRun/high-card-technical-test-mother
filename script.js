@@ -1,6 +1,22 @@
 // Import the Deck class from the deck.js file
 import Deck from './deck.js';
 
+const CARD_VALUE_MAP = {
+    '2': 2,
+    '3': 3,
+    '4': 4,
+    '5': 5,
+    '6': 6,
+    '7': 7,
+    '8': 8,
+    '9': 9,
+    '10': 10,
+    'J': 11,
+    'Q': 12,
+    'K': 13,
+    'A': 14,
+}
+
 // Select the computer card slot element
 const computerCardSlot = document.querySelector('.computer-card-slot');
 const playerCardSlot = document.querySelector('.player-card-slot');
@@ -27,7 +43,7 @@ function startGame() {
   // Split the deck into two halves
   const deckMidpoint = Math.ceil(deck.numberOfCards / 2);
   playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
-  computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards))
+  computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards));
   inRound = false;
 
 
@@ -44,18 +60,46 @@ function flipCards() {
 
     playerCardSlot.appendChild(playerCard.getHTML());
     computerCardSlot.appendChild(computerCard.getHTML());
+
+    updateDeckCount();
+
+    if(declareWinner(playerCard, computerCard) === 'Player'){
+        text.innerText = 'Player wins!';
+    } else {
+        text.innerText = 'Computer wins!';
+    }
 }
 
+// Function to clean up the game board before a new round
 function cleanBeforeRound() {
+    // Reset the inRound flag
     inRound = false;
+
+    // Clear the text and the card slots
     text.innerText = '';
     computerCardSlot.innerHTML = '';
     playerCardSlot.innerHTML = '';
 
+    // Update the deck count
     updateDeckCount();
+
+    if(declareWinner(playerCard, computerCard) === 'Player'){
+        text.innerText = 'Player wins!';
+    } else {
+        text.innerText = 'Computer wins!';
+    }
 }
 
+// Function to update the deck count
 function updateDeckCount() {
     computerDeckElement.innerText = computerDeck.numberOfCards;
     playerDeckElement.innerText = playerDeck.numberOfCards;
+}
+// Function to declare the winner of the round
+function declareWinner(cardOne, cardTwo) {
+    if (CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]) {
+        return 'Player';
+    } else {
+        return 'Computer';
+    }
 }
