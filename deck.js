@@ -15,7 +15,7 @@ export default class Deck {
     return this.cards.length;
   }
 
-  // Method to shuffle the deck of cards
+  // Method to shuffle the deck of cards using the Fisher-Yates shuffle algorithm
   shuffle() {
     for (let i = this.numberOfCards - 1; i > 0; i--) {
       const newIndex = Math.floor(Math.random() * (i + 1));
@@ -32,6 +32,20 @@ class Card {
     this.suit = suit;
     this.value = value;
   }
+
+  get colour() {
+    return this.suit === '♣' || this.suit === '♠' ? 'black' : 'red';
+  }
+
+  // Method to get the HTML representation of the card
+  getHTML() {
+    const cardDiv = document.createElement('div');
+    cardDiv.innerText = this.suit;
+    cardDiv.classList.add("card", this.colour);
+    cardDiv.dataset.value = `${this.value} ${this.suit}`;
+    return cardDiv;
+  }
+
 }
 
 // Function to create a deck of cards

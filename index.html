@@ -3,38 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>High Card Game</title>
+    <title>High Card</title>
+    <script src="script.js" type="module"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>High Card Game</h1>
-        
-        <div class="game-area">
-            <div class="player-section">
-                <h2>Your Card</h2>
-                <div class="card player-card"></div>
-                <button id="drawButton">Draw Card</button>
-            </div>
-
-            <div class="computer-section">
-                <h2>Computer's Card</h2>
-                <div class="card computer-card"></div>
-            </div>
-        </div>
-
-        <div class="game-controls">
-            <div id="result" class="result"></div>
-            <button id="newGameButton">New Game</button>
-            <button id="resetButton">Reset Score</button>
-        </div>
-
-        <div class="score-board">
-            <div>Player Score: <span id="playerScore">0</span></div>
-            <div>Computer Score: <span id="computerScore">0</span></div>
-        </div>
-    </div>
-    <script src="script.js" type="module"></script>
-    <script src="deck.js" type="module"></script>
+    <div class="computer-deck deck">26</div>
+    <div class="computer-card-slot card-slot"></div>
+    <div class="text">dafkshdf</div>
+    <div class="player-deck deck">26</div>
+    <div class="player-card-slot card-slot"></div>
 </body>
-</html>
