@@ -45,7 +45,11 @@ const gameEvents = new GameEventEmitter();
 
 // Event Handlers
 document.addEventListener('click', () => {
-    gameEvents.emit('userAction', { inRound });
+    if (!isGameOver()) {
+        gameEvents.emit('userAction', { inRound });
+    } else {
+        startGame();
+    }
 });
 
 gameEvents.on('userAction', ({ inRound }) => {

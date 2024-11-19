@@ -1,5 +1,5 @@
 // cardRenderer.js
-export class CardRenderer {
+export default class CardRenderer {
   static createCardElement(card) {
       const cardDiv = document.createElement('div');
       cardDiv.innerText = card.suit;
