@@ -1,18 +1,10 @@
 import Deck from './deck.js';
-import CardRenderer from './cardRenderer.js';
 import { gameEvents, GAME_EVENTS } from './gameEvents.js';
 import { HighCardGame } from './highCardGame.js';
-
-// DOM Elements
-const computerCardSlot = document.querySelector('.computer-card-slot');
-const playerCardSlot = document.querySelector('.player-card-slot');
-const computerDeckElement = document.querySelector('.computer-deck');
-const playerDeckElement = document.querySelector('.player-deck');
-const text = document.querySelector('.text');
-const computerScoreElement = document.querySelector('.computer-score');
-const playerScoreElement = document.querySelector('.player-score');
+import { UIManager } from './uiManager.js';
 
 const game = new HighCardGame();
+const ui = new UIManager();
 
 // Event Handlers
 document.addEventListener('click', () => {
@@ -33,46 +25,23 @@ gameEvents.on(GAME_EVENTS.USER_ACTION, ({ inRound }) => {
     }
 });
 
-gameEvents.on(GAME_EVENTS.ROUND_END, ({ winner }) => {
-    text.innerText = winner ? `${winner} wins!` : 'Draw!';
-    if (winner) {
-        const scores = game.getGameState();
-        updateScoreDisplay(scores);
-    }
-});
-
-gameEvents.on(GAME_EVENTS.GAME_OVER, ({ winner }) => {
-    text.innerText = `${winner} wins the game!`;
-});
-
 gameEvents.on(GAME_EVENTS.UPDATE_UI, ({ playerCard, computerCard }) => {
-    if (playerCard) {
-        const playerCardElement = CardRenderer.createCardElement(playerCard);
-        playerCardSlot.appendChild(playerCardElement);
-    }
-    if (computerCard) {
-        const computerCardElement = CardRenderer.createCardElement(computerCard);
-        computerCardSlot.appendChild(computerCardElement);
-    }
-    updateDeckCount();
+    const gameState = game.getGameState();
+    ui.updateDeckCount(gameState.playerDeckCount, gameState.computerDeckCount);
 });
 
-// UI Functions
+// Game Functions
 function startGame() {
     const deck = new Deck();
     game.startGame(deck);
-    
-    computerScoreElement.innerText = 'Wins: 0';
-    playerScoreElement.innerText = 'Wins: 0';
-    
+    ui.resetScores();
     cleanBeforeRound();
 }
 
 function cleanBeforeRound() {
-    text.innerText = '';
-    computerCardSlot.innerHTML = '';
-    playerCardSlot.innerHTML = '';
-    updateDeckCount();
+    ui.cleanUI();
+    const gameState = game.getGameState();
+    ui.updateDeckCount(gameState.playerDeckCount, gameState.computerDeckCount);
 
     if (game.isGameOver()) {
         const gameState = game.getGameState();
@@ -81,17 +50,6 @@ function cleanBeforeRound() {
                       'Draw';
         gameEvents.emit(GAME_EVENTS.GAME_OVER, { winner });
     }
-}
-
-function updateDeckCount() {
-    const gameState = game.getGameState();
-    computerDeckElement.innerText = gameState.computerDeckCount;
-    playerDeckElement.innerText = gameState.playerDeckCount;
-}
-
-function updateScoreDisplay({ playerWins, computerWins }) {
-    playerScoreElement.innerText = `Wins: ${playerWins}`;
-    computerScoreElement.innerText = `Wins: ${computerWins}`;
 }
 
 // Start the game
