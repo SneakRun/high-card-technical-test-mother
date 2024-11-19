@@ -58,15 +58,19 @@ function flipCards() {
     const computerCard = computerDeck.pop();
     const playerCard = playerDeck.pop();
 
+    // Append the cards to the card slots
     playerCardSlot.appendChild(playerCard.getHTML());
     computerCardSlot.appendChild(computerCard.getHTML());
 
     updateDeckCount();
 
+    // Declare the winner of the round based on the card values
     if(declareWinner(playerCard, computerCard) === 'Player'){
         text.innerText = 'Player wins!';
-    } else {
+    } else if (declareWinner(playerCard, computerCard) === 'Computer') {
         text.innerText = 'Computer wins!';
+    } else {
+        text.innerText = 'Draw!';
     }
 }
 
