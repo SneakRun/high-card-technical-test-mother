@@ -26,6 +26,7 @@ document.addEventListener('click', () => {
 
 gameEvents.on(GAME_EVENTS.USER_ACTION, ({ inRound }) => {
     if (inRound) {
+        game.cleanBeforeRound();
         cleanBeforeRound();
     } else {
         game.flipCards();
@@ -61,7 +62,6 @@ function startGame() {
     const deck = new Deck();
     game.startGame(deck);
     
-    const gameState = game.getGameState();
     computerScoreElement.innerText = 'Wins: 0';
     playerScoreElement.innerText = 'Wins: 0';
     

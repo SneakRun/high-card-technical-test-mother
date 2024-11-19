@@ -1,4 +1,5 @@
 import { GAME_EVENTS, gameEvents } from './gameEvents.js';
+import Deck from './deck.js';
 
 export const CARD_VALUE_MAP = {
     '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
@@ -35,6 +36,11 @@ export class HighCardGame {
         
         const winner = this.declareWinner(playerCard, computerCard);
         if (winner) this.updateScore(winner);
+        
+        if (this.isGameOver()) {
+            this.gameOverState = true;
+        }
+        
         gameEvents.emit(GAME_EVENTS.ROUND_END, { winner });
     }
 
@@ -51,6 +57,10 @@ export class HighCardGame {
         if (winner === 'Player') this.playerWins++;
         else if (winner === 'Computer') this.computerWins++;
         return { playerWins: this.playerWins, computerWins: this.computerWins };
+    }
+
+    cleanBeforeRound() {
+        this.inRound = false;
     }
 
     isGameOver() {
