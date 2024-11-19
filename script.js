@@ -1,4 +1,5 @@
 import Deck from './deck.js';
+import CardRenderer from './cardRenderer.js';
 
 // Game constants
 const CARD_VALUE_MAP = {
@@ -65,8 +66,14 @@ gameEvents.on('gameOver', ({ winner }) => {
 });
 
 gameEvents.on('updateUI', ({ playerCard, computerCard }) => {
-    if (playerCard) playerCardSlot.appendChild(playerCard.getHTML());
-    if (computerCard) computerCardSlot.appendChild(computerCard.getHTML());
+    if (playerCard) {
+        const playerCardElement = CardRenderer.createCardElement(playerCard);
+        playerCardSlot.appendChild(playerCardElement);
+    }
+    if (computerCard) {
+        const computerCardElement = CardRenderer.createCardElement(computerCard);
+        computerCardSlot.appendChild(computerCardElement);
+    }
     updateDeckCount();
 });
 
