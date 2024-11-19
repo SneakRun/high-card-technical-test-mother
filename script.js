@@ -20,6 +20,7 @@ const playerScoreElement = document.querySelector('.player-score');
 let playerDeck, computerDeck, inRound;
 let playerWins = 0;
 let computerWins = 0;
+let gameOverState = false;
 
 // Game Events
 class GameEventEmitter {
@@ -45,10 +46,11 @@ const gameEvents = new GameEventEmitter();
 
 // Event Handlers
 document.addEventListener('click', () => {
-    if (!isGameOver()) {
-        gameEvents.emit('userAction', { inRound });
-    } else {
+    if (gameOverState) {
+        gameOverState = false;
         startGame();
+    } else if (!isGameOver()) {
+        gameEvents.emit('userAction', { inRound });
     }
 });
 
@@ -67,6 +69,7 @@ gameEvents.on('roundEnd', ({ winner }) => {
 
 gameEvents.on('gameOver', ({ winner }) => {
     text.innerText = `${winner} wins the game!`;
+    gameOverState = true;
 });
 
 gameEvents.on('updateUI', ({ playerCard, computerCard }) => {
