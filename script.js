@@ -87,11 +87,19 @@ function cleanBeforeRound() {
     // Update the deck count
     updateDeckCount();
 
-    if(declareWinner(playerCard, computerCard) === 'Player'){
-        text.innerText = 'Player wins!';
-    } else {
-        text.innerText = 'Computer wins!';
+    // Check if game is over
+    if (isGameOver()) {
+        if (playerDeck.numberOfCards > computerDeck.numberOfCards) {
+            text.innerText = 'Player wins the game!';
+        } else {
+            text.innerText = 'Computer wins the game!';
+        }
     }
+}
+
+// Add this helper function
+function isGameOver() {
+    return playerDeck.numberOfCards === 0 || computerDeck.numberOfCards === 0;
 }
 
 // Function to update the deck count
@@ -99,6 +107,7 @@ function updateDeckCount() {
     computerDeckElement.innerText = computerDeck.numberOfCards;
     playerDeckElement.innerText = playerDeck.numberOfCards;
 }
+
 // Function to declare the winner of the round
 function declareWinner(cardOne, cardTwo) {
     if (CARD_VALUE_MAP[cardOne.value] > CARD_VALUE_MAP[cardTwo.value]) {
