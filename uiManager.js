@@ -18,6 +18,7 @@ export class UIManager {
         gameEvents.on(GAME_EVENTS.UPDATE_UI, this.handleUpdateUI.bind(this));
         gameEvents.on(GAME_EVENTS.ROUND_END, this.handleRoundEnd.bind(this));
         gameEvents.on(GAME_EVENTS.GAME_OVER, this.handleGameOver.bind(this));
+        gameEvents.on(GAME_EVENTS.SCORE_UPDATE, this.handleScoreUpdate.bind(this));
     }
 
     handleUpdateUI({ playerCard, computerCard }) {
@@ -37,6 +38,10 @@ export class UIManager {
 
     handleGameOver({ winner }) {
         this.text.innerText = `${winner} wins the game!`;
+    }
+
+    handleScoreUpdate({ playerWins, computerWins }) {
+        this.updateScoreDisplay(playerWins, computerWins);
     }
 
     updateDeckCount(playerCount, computerCount) {

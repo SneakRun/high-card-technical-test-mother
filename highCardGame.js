@@ -56,7 +56,9 @@ export class HighCardGame {
     updateScore(winner) {
         if (winner === 'Player') this.playerWins++;
         else if (winner === 'Computer') this.computerWins++;
-        return { playerWins: this.playerWins, computerWins: this.computerWins };
+        const scores = { playerWins: this.playerWins, computerWins: this.computerWins };
+        gameEvents.emit(GAME_EVENTS.SCORE_UPDATE, scores);
+        return scores;
     }
 
     cleanBeforeRound() {

@@ -41,7 +41,8 @@ const GAME_EVENTS = {
   USER_ACTION: 'userAction',
   ROUND_END: 'roundEnd',
   GAME_OVER: 'gameOver',
-  UPDATE_UI: 'updateUI'
+  UPDATE_UI: 'updateUI',
+  SCORE_UPDATE: 'scoreUpdate'
 };
 
 export { gameEvents, GAME_EVENTS };
