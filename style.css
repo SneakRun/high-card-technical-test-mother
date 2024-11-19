@@ -41,6 +41,23 @@ body {
   user-select: none;
 }
 
+/* Score Styles */
+.computer-score, .player-score {
+  margin-left: 1rem;
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+}
+
+.computer-score {
+  grid-row: 1;
+}
+
+.player-score {
+  grid-row: 3;
+}
+
+/* Card Styles*/
 .card {
   position: relative;
   height: 100%;
@@ -53,6 +70,7 @@ body {
   font-size: 4rem;
   user-select: none;
 }
+
 
 .card.red {
   color: red;
@@ -80,3 +98,4 @@ body {
   right: 0.5rem;
   transform: rotate(180deg);
 }
+

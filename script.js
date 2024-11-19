@@ -12,9 +12,13 @@ const playerCardSlot = document.querySelector('.player-card-slot');
 const computerDeckElement = document.querySelector('.computer-deck');
 const playerDeckElement = document.querySelector('.player-deck');
 const text = document.querySelector('.text');
+const computerScoreElement = document.querySelector('.computer-score');
+const playerScoreElement = document.querySelector('.player-score');
 
 // Game state
 let playerDeck, computerDeck, inRound;
+let playerWins = 0;
+let computerWins = 0;
 
 // Game Events
 class GameEventEmitter {
@@ -53,6 +57,7 @@ gameEvents.on('userAction', ({ inRound }) => {
 
 gameEvents.on('roundEnd', ({ winner }) => {
     text.innerText = winner ? `${winner} wins!` : 'Draw!';
+    if (winner) updateScore(winner);
 });
 
 gameEvents.on('gameOver', ({ winner }) => {
@@ -74,6 +79,11 @@ function startGame() {
     playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
     computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards));
     inRound = false;
+
+    playerWins = 0;
+    computerWins = 0;
+    computerScoreElement.innerText = 'Wins: 0';
+    playerScoreElement.innerText = 'Wins: 0';
 
     cleanBeforeRound();
 }
@@ -98,7 +108,9 @@ function cleanBeforeRound() {
     updateDeckCount();
 
     if (isGameOver()) {
-        const winner = playerDeck.numberOfCards > computerDeck.numberOfCards ? 'Player' : 'Computer';
+        const winner = playerWins > computerWins ? 'Player' : 
+                      computerWins > playerWins ? 'Computer' : 
+                      'Draw';
         gameEvents.emit('gameOver', { winner });
     }
 }
@@ -110,6 +122,16 @@ function isGameOver() {
 function updateDeckCount() {
     computerDeckElement.innerText = computerDeck.numberOfCards;
     playerDeckElement.innerText = playerDeck.numberOfCards;
+}
+
+function updateScore(winner) {
+    if (winner === 'Player') {
+        playerWins++;
+        playerScoreElement.innerText = `Wins: ${playerWins}`;
+    } else if (winner === 'Computer') {
+        computerWins++;
+        computerScoreElement.innerText = `Wins: ${computerWins}`;
+    }
 }
 
 function declareWinner(cardOne, cardTwo) {
