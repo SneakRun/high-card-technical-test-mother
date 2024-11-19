@@ -1,4 +1,4 @@
-import { GAME_EVENTS, gameEvents } from './gameEvents.js';
+import { GAME_EVENTS, gameEvents } from '../events/gameEvents.js';
 import Deck from './deck.js';
 
 export const CARD_VALUE_MAP = {

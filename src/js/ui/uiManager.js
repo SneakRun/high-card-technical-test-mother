@@ -1,5 +1,5 @@
 import CardRenderer from './cardRenderer.js';
-import { gameEvents, GAME_EVENTS } from './gameEvents.js';
+import { gameEvents, GAME_EVENTS } from '../events/gameEvents.js';
 
 export class UIManager {
     constructor() {
