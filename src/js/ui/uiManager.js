@@ -45,8 +45,8 @@ export class UIManager {
     }
 
     updateDeckCount(playerCount, computerCount) {
-        this.computerDeckElement.innerText = computerCount;
-        this.playerDeckElement.innerText = playerCount;
+        this.computerDeckElement.innerText = String(computerCount);
+        this.playerDeckElement.innerText = String(playerCount);
     }
 
     updateScoreDisplay(playerWins, computerWins) {
