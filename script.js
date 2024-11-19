@@ -1,124 +1,55 @@
 import Deck from './deck.js';
+import { gameEvents, GAME_EVENTS } from './gameEvents.js';
+import { HighCardGame } from './highCardGame.js';
+import { UIManager } from './uiManager.js';
 
-// Game constants
-const CARD_VALUE_MAP = {
-    '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8,
-    '9': 9, '10': 10, 'J': 11, 'Q': 12, 'K': 13, 'A': 14
-};
-
-// DOM Elements
-const computerCardSlot = document.querySelector('.computer-card-slot');
-const playerCardSlot = document.querySelector('.player-card-slot');
-const computerDeckElement = document.querySelector('.computer-deck');
-const playerDeckElement = document.querySelector('.player-deck');
-const text = document.querySelector('.text');
-
-// Game state
-let playerDeck, computerDeck, inRound;
-
-// Game Events
-class GameEventEmitter {
-    constructor() {
-        this.listeners = new Map();
-    }
-
-    on(event, callback) {
-        if (!this.listeners.has(event)) {
-            this.listeners.set(event, []);
-        }
-        this.listeners.get(event).push(callback);
-    }
-
-    emit(event, data) {
-        if (this.listeners.has(event)) {
-            this.listeners.get(event).forEach(callback => callback(data));
-        }
-    }
-}
-
-const gameEvents = new GameEventEmitter();
+const game = new HighCardGame();
+const ui = new UIManager();
 
 // Event Handlers
 document.addEventListener('click', () => {
-    gameEvents.emit('userAction', { inRound });
-});
-
-gameEvents.on('userAction', ({ inRound }) => {
-    if (inRound) {
-        cleanBeforeRound();
-    } else {
-        flipCards();
+    const gameState = game.getGameState();
+    if (gameState.gameOverState) {
+        startGame();
+    } else if (!game.isGameOver()) {
+        gameEvents.emit(GAME_EVENTS.USER_ACTION, { inRound: gameState.inRound });
     }
 });
 
-gameEvents.on('roundEnd', ({ winner }) => {
-    text.innerText = winner ? `${winner} wins!` : 'Draw!';
+gameEvents.on(GAME_EVENTS.USER_ACTION, ({ inRound }) => {
+    if (inRound) {
+        game.cleanBeforeRound();
+        cleanBeforeRound();
+    } else {
+        game.flipCards();
+    }
 });
 
-gameEvents.on('gameOver', ({ winner }) => {
-    text.innerText = `${winner} wins the game!`;
-});
-
-gameEvents.on('updateUI', ({ playerCard, computerCard }) => {
-    if (playerCard) playerCardSlot.appendChild(playerCard.getHTML());
-    if (computerCard) computerCardSlot.appendChild(computerCard.getHTML());
-    updateDeckCount();
+gameEvents.on(GAME_EVENTS.UPDATE_UI, ({ playerCard, computerCard }) => {
+    const gameState = game.getGameState();
+    ui.updateDeckCount(gameState.playerDeckCount, gameState.computerDeckCount);
 });
 
 // Game Functions
 function startGame() {
     const deck = new Deck();
-    deck.shuffle();
-
-    const deckMidpoint = Math.ceil(deck.numberOfCards / 2);
-    playerDeck = new Deck(deck.cards.slice(0, deckMidpoint));
-    computerDeck = new Deck(deck.cards.slice(deckMidpoint, deck.numberOfCards));
-    inRound = false;
-
+    game.startGame(deck);
+    ui.resetScores();
     cleanBeforeRound();
 }
 
-function flipCards() {
-    inRound = true;
-
-    const computerCard = computerDeck.pop();
-    const playerCard = playerDeck.pop();
-
-    gameEvents.emit('updateUI', { playerCard, computerCard });
-
-    const winner = declareWinner(playerCard, computerCard);
-    gameEvents.emit('roundEnd', { winner });
-}
-
 function cleanBeforeRound() {
-    inRound = false;
-    text.innerText = '';
-    computerCardSlot.innerHTML = '';
-    playerCardSlot.innerHTML = '';
-    updateDeckCount();
+    ui.cleanUI();
+    const gameState = game.getGameState();
+    ui.updateDeckCount(gameState.playerDeckCount, gameState.computerDeckCount);
 
-    if (isGameOver()) {
-        const winner = playerDeck.numberOfCards > computerDeck.numberOfCards ? 'Player' : 'Computer';
-        gameEvents.emit('gameOver', { winner });
+    if (game.isGameOver()) {
+        const gameState = game.getGameState();
+        const winner = gameState.playerWins > gameState.computerWins ? 'Player' : 
+                      gameState.computerWins > gameState.playerWins ? 'Computer' : 
+                      'Draw';
+        gameEvents.emit(GAME_EVENTS.GAME_OVER, { winner });
     }
-}
-
-function isGameOver() {
-    return playerDeck.numberOfCards === 0 || computerDeck.numberOfCards === 0;
-}
-
-function updateDeckCount() {
-    computerDeckElement.innerText = computerDeck.numberOfCards;
-    playerDeckElement.innerText = playerDeck.numberOfCards;
-}
-
-function declareWinner(cardOne, cardTwo) {
-    const playerValue = CARD_VALUE_MAP[cardOne.value];
-    const computerValue = CARD_VALUE_MAP[cardTwo.value];
-    
-    if (playerValue > computerValue) return 'Player';
-    if (playerValue < computerValue) return 'Computer';
-    return null;
 }
 
 // Start the game
