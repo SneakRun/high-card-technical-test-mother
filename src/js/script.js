@@ -1,7 +1,7 @@
-import Deck from './deck.js';
-import { gameEvents, GAME_EVENTS } from './gameEvents.js';
-import { HighCardGame } from './highCardGame.js';
-import { UIManager } from './uiManager.js';
+import Deck from './game/deck.js';
+import { gameEvents, GAME_EVENTS } from './events/gameEvents.js';
+import { HighCardGame } from './game/highCardGame.js';
+import { UIManager } from './ui/uiManager.js';
 
 const game = new HighCardGame();
 const ui = new UIManager();

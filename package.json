@@ -1,0 +1,18 @@
+{
+  "name": "high-card-technical-test-mother",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cardRenderer.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
