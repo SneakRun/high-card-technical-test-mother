@@ -74,8 +74,26 @@ export class UIManager {
     // Clear all UI elements (cards and text)
     cleanUI() {
         this.text.innerText = '';
-        this.computerCardSlot.innerHTML = '';
-        this.playerCardSlot.innerHTML = '';
+        
+        // Get all cards currently in play
+        const cards = [...this.computerCardSlot.children, ...this.playerCardSlot.children];
+        
+        // If there are cards, animate them out
+        if (cards.length > 0) {
+            // Remove any existing exit animations
+            cards.forEach(card => {
+                card.classList.remove('card-exit');
+                // Force a reflow to ensure animation plays
+                void card.offsetWidth;
+                card.classList.add('card-exit');
+            });
+
+            // Clear slots after animation
+            setTimeout(() => {
+                this.computerCardSlot.innerHTML = '';
+                this.playerCardSlot.innerHTML = '';
+            }, 300); // Match animation duration
+        }
     }
 
     // Reset score displays to zero

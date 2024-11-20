@@ -105,16 +105,22 @@ describe('Game State Messages', () => {
 });
 
 describe('UI Cleanup', () => {
-    test('should clean UI elements correctly', () => {
+    test('should clean UI elements correctly', done => {
         document.querySelector('.text').innerText = 'Some text';
-        document.querySelector('.computer-card-slot').innerHTML = '<div>Card</div>';
-        document.querySelector('.player-card-slot').innerHTML = '<div>Card</div>';
+        document.querySelector('.computer-card-slot').innerHTML = '<div class="card">Card</div>';
+        document.querySelector('.player-card-slot').innerHTML = '<div class="card">Card</div>';
 
         ui.cleanUI();
         
+        // Check text is cleared immediately
         expect(document.querySelector('.text').innerText).toBe('');
-        expect(document.querySelector('.computer-card-slot').innerHTML).toBe('');
-        expect(document.querySelector('.player-card-slot').innerHTML).toBe('');
+        
+        // Check cards are cleared after animation
+        setTimeout(() => {
+            expect(document.querySelector('.computer-card-slot').innerHTML).toBe('');
+            expect(document.querySelector('.player-card-slot').innerHTML).toBe('');
+            done();
+        }, 350); // Slightly longer than animation duration
     });
 });
 });
