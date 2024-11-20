@@ -27,16 +27,21 @@ export class UIManager {
 
     // Handle updating the UI with new card plays
     handleUpdateUI({ playerCard, computerCard }) {
-        // Create and display player's card if present
-        if (playerCard) {
-            const playerCardElement = CardRenderer.createCardElement(playerCard);
-            this.playerCardSlot.appendChild(playerCardElement);
-        }
-        // Create and display computer's card if present
-        if (computerCard) {
-            const computerCardElement = CardRenderer.createCardElement(computerCard);
-            this.computerCardSlot.appendChild(computerCardElement);
-        }
+        return new Promise(resolve => {
+            // Create and display player's card if present
+            if (playerCard) {
+                const playerCardElement = CardRenderer.createCardElement(playerCard);
+                this.playerCardSlot.appendChild(playerCardElement);
+            }
+            // Create and display computer's card if present
+            if (computerCard) {
+                const computerCardElement = CardRenderer.createCardElement(computerCard);
+                this.computerCardSlot.appendChild(computerCardElement);
+            }
+    
+            // Wait for animation to complete (0.6s)
+            setTimeout(resolve, 600);
+        });
     }
 
     // Display message when a round ends
@@ -56,8 +61,23 @@ export class UIManager {
 
     // Update the displayed deck counts
     updateDeckCount(playerCount, computerCount) {
+        // Update numbers
         this.computerDeckElement.innerText = String(computerCount);
         this.playerDeckElement.innerText = String(playerCount);
+        
+        // Update shadows
+        const computerShadow = this.calculateShadowSize(computerCount);
+        const playerShadow = this.calculateShadowSize(playerCount);
+        
+        this.computerDeckElement.style.boxShadow = `
+            ${computerShadow}px ${computerShadow}px ${computerShadow * 2}px var(--shadow-dark),
+            -${computerShadow}px -${computerShadow}px ${computerShadow * 2}px var(--shadow-light)
+        `;
+        
+        this.playerDeckElement.style.boxShadow = `
+            ${playerShadow}px ${playerShadow}px ${playerShadow * 2}px var(--shadow-dark),
+            -${playerShadow}px -${playerShadow}px ${playerShadow * 2}px var(--shadow-light)
+        `;
     }
 
     // Update the win counts display
@@ -69,13 +89,43 @@ export class UIManager {
     // Clear all UI elements (cards and text)
     cleanUI() {
         this.text.innerText = '';
-        this.computerCardSlot.innerHTML = '';
-        this.playerCardSlot.innerHTML = '';
+        
+        // Get all cards currently in play
+        const cards = [...this.computerCardSlot.children, ...this.playerCardSlot.children];
+        
+        // If there are cards, animate them out
+        if (cards.length > 0) {
+            // Remove any existing exit animations
+            cards.forEach(card => {
+                card.classList.remove('card-exit');
+                // Force a reflow to ensure animation plays
+                void card.offsetWidth;
+                card.classList.add('card-exit');
+            });
+
+            // Clear slots after animation
+            setTimeout(() => {
+                this.computerCardSlot.innerHTML = '';
+                this.playerCardSlot.innerHTML = '';
+            }, 300); // Match animation duration
+        }
     }
 
     // Reset score displays to zero
     resetScores() {
         this.computerScoreElement.innerText = 'Wins: 0';
         this.playerScoreElement.innerText = 'Wins: 0';
+    }
+
+    // Add to UIManager class
+    calculateShadowSize(cardCount) {
+        // Max shadow at 26 cards (full deck), min at 0
+        const maxShadow = 8;
+        const minShadow = 0;
+        const shadowSize = Math.max(
+            minShadow,
+            (cardCount / 26) * maxShadow
+        );
+        return shadowSize;
     }
 }
