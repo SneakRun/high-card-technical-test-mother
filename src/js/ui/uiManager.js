@@ -26,21 +26,48 @@ export class UIManager {
     }
 
     // Handle updating the UI with new card plays
+    // Returns a Promise that resolves after animations complete
     handleUpdateUI({ playerCard, computerCard }) {
         return new Promise(resolve => {
-            // Create and display player's card if present
+            // Handle player's card if one was played
             if (playerCard) {
+                // Create and add the card element to the player's slot
                 const playerCardElement = CardRenderer.createCardElement(playerCard);
                 this.playerCardSlot.appendChild(playerCardElement);
+
+                // After card appears (600ms), add glow effect
+                setTimeout(() => {
+                    // Set glow color based on suit - cyan for clubs/spades, pink for hearts/diamonds
+                    const glowColor = playerCard.suit === '♣' || playerCard.suit === '♠' ? 
+                        'var(--accent-black)' : 'var(--accent-red)';
+                    playerCardElement.style.setProperty('--glow-color', glowColor);
+                    // Add pulsing glow animation class
+                    playerCardElement.classList.add('glow-pulse');
+                }, 600);
             }
-            // Create and display computer's card if present
+
+            // Handle computer's card if one was played
             if (computerCard) {
+                // Create and add the card element to the computer's slot
                 const computerCardElement = CardRenderer.createCardElement(computerCard);
                 this.computerCardSlot.appendChild(computerCardElement);
+
+                // After card appears (600ms), add glow effect
+                setTimeout(() => {
+                    // Set glow color based on suit - cyan for clubs/spades, pink for hearts/diamonds
+                    const glowColor = computerCard.suit === '♣' || computerCard.suit === '♠' ? 
+                        'var(--accent-black)' : 'var(--accent-red)';
+                    computerCardElement.style.setProperty('--glow-color', glowColor);
+                    // Add pulsing glow animation class
+                    computerCardElement.classList.add('glow-pulse');
+                }, 600);
             }
-    
-            // Wait for animation to complete (0.6s)
-            setTimeout(resolve, 600);
+
+            // Resolve promise after animations complete (2100ms total)
+            // This includes:
+            // - 600ms for cards to appear
+            // - 1500ms for glow pulse animation
+            setTimeout(resolve, 600 + glowPulseDuration);
         });
     }
 
@@ -82,8 +109,8 @@ export class UIManager {
 
     // Update the win counts display
     updateScoreDisplay(playerWins, computerWins) {
-        this.playerScoreElement.innerText = `Wins: ${playerWins}`;
-        this.computerScoreElement.innerText = `Wins: ${computerWins}`;
+        this.playerScoreElement.innerText = String(playerWins);
+        this.computerScoreElement.innerText = String(computerWins);
     }
 
     // Clear all UI elements (cards and text)
@@ -113,8 +140,8 @@ export class UIManager {
 
     // Reset score displays to zero
     resetScores() {
-        this.computerScoreElement.innerText = 'Wins: 0';
-        this.playerScoreElement.innerText = 'Wins: 0';
+        this.computerScoreElement.innerText = '0';
+        this.playerScoreElement.innerText = '0';
     }
 
     // Add to UIManager class
@@ -122,10 +149,9 @@ export class UIManager {
         // Max shadow at 26 cards (full deck), min at 0
         const maxShadow = 8;
         const minShadow = 0;
-        const shadowSize = Math.max(
+        return Math.max(
             minShadow,
             (cardCount / 26) * maxShadow
         );
-        return shadowSize;
     }
 }
