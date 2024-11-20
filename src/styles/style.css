@@ -77,6 +77,7 @@ body {
 
 /* Card Styles */
 .card {
+  position: relative;
   height: var(--card-size);
   width: calc(var(--card-size) * 0.7);
   background: var(--card-bg);
@@ -86,7 +87,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3rem;
   user-select: none;
   transition: transform 0.3s ease;
 }
@@ -103,11 +103,19 @@ body {
 
 /* Text Styles */
 .text {
-  grid-column: span 2;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
+  height: 4rem;
+  width: calc(var(--card-size) * 0.7);  /* Match card slot width */
+  margin: 1rem 0;
+  padding: 1rem;
+  font-size: 1.2rem;
+  background: var(--main-bg);
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+              inset -2px -2px 5px var(--shadow-light);
 }
 
 /* Score Styles */
@@ -116,46 +124,53 @@ body {
   grid-column: 3;
   display: flex;
   align-items: center;
+  user-select: none;
 }
 
 /* Computer Score Styles */
 .computer-score { 
   grid-row: 1;
+  user-select: none;
 }
 
 /* Player Score Styles */
 .player-score {
   grid-row: 3;
+  user-select: none;
 }
 
 /* Card Color Styles */
 .card.red {
-  color: red;
+  color: #e74c3c;
 }
 
+/* Card Black Styles */
 .card.black {
-  color: black;
+  color: #2d3436;
 }
 
 /* Card Value Styles */
-.card::before,
-.card::after {
+.card-value {
   position: absolute;
-  content: attr(data-value);
-  font-size: 1rem;
-  user-select: none;
+  font-size: 1.2rem;
+  padding: 0.5rem;
 }
 
-/* Card Value Position Styles */
-.card::before {
-  top: 0.5rem;
-  left: 0.5rem;
+/* Card Value Top Styles */
+.card-value.top {
+  top: 0;
+  left: 0;
 }
 
-/* Card Value Position Styles */
-.card::after {
-  bottom: 0.5rem;
-  right: 0.5rem;
+/* Card Value Bottom Styles */
+.card-value.bottom {
+  bottom: 0;
+  right: 0;
   transform: rotate(180deg);
+}
+
+/* Card Suit Styles */
+.card-suit {
+  font-size: 3rem;
 }
 
