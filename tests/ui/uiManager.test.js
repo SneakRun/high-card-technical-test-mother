@@ -5,12 +5,20 @@
 import { UIManager } from '../../src/js/ui/uiManager.js';
 import { gameEvents, GAME_EVENTS } from '../../src/js/events/gameEvents.js';
 import CardRenderer from '../../src/js/ui/cardRenderer.js';
+import { ANIMATIONS } from '../../src/js/config/animationConfig.js';
+
+// Create a mock element factory function
+const createMockElement = () => {
+    const element = document.createElement('div');
+    jest.spyOn(element.classList, 'add');
+    jest.spyOn(element.classList, 'remove');
+    jest.spyOn(element.classList, 'contains');
+    return element;
+};
 
 // Mock CardRenderer
 jest.mock('../../src/js/ui/cardRenderer.js', () => ({
-  createCardElement: jest.fn().mockReturnValue({
-      classList: { add: jest.fn() }
-  })
+    createCardElement: jest.fn().mockImplementation(() => createMockElement())
 }));
 
 describe('UIManager', () => {
@@ -29,12 +37,17 @@ describe('UIManager', () => {
       ui = new UIManager();
       jest.clearAllMocks();
     
-      // Update the mock to return a real DOM element
+      // Update the mock to return our mock element
     CardRenderer.createCardElement.mockImplementation(() => {
-      const element = document.createElement('div');
-      element.classList.add('card');
-      return element;
+        const element = createMockElement();
+        element.classList.add('card');
+        return element;
     });
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   describe('Event Listeners', () => {
@@ -56,8 +69,13 @@ describe('Card Rendering', () => {
         
         ui.handleUpdateUI({ playerCard, computerCard });
         
-        expect(CardRenderer.createCardElement).toHaveBeenCalledTimes(2);
+        // Player card should be immediate
         expect(CardRenderer.createCardElement).toHaveBeenCalledWith(playerCard);
+        
+        // Advance timer for computer card
+        jest.advanceTimersByTime(ANIMATIONS.duration.card * 1.5);
+        
+        expect(CardRenderer.createCardElement).toHaveBeenCalledTimes(2);
         expect(CardRenderer.createCardElement).toHaveBeenCalledWith(computerCard);
     });
 
@@ -115,6 +133,43 @@ describe('UI Cleanup', () => {
         expect(document.querySelector('.text').innerText).toBe('');
         expect(document.querySelector('.computer-card-slot').innerHTML).toBe('');
         expect(document.querySelector('.player-card-slot').innerHTML).toBe('');
+    });
+});
+
+describe('Animation Handling', () => {
+    beforeEach(() => {
+        jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+        jest.useRealTimers();
+    });
+
+    test('should add and remove flip animation class for player card', () => {
+        const playerCard = { value: 'K', suit: '♥' };
+        ui.handleUpdateUI({ playerCard });
+        
+        const playerCardElement = document.querySelector('.player-card-slot div');
+        expect(playerCardElement.classList.contains(ANIMATIONS.classes.card.flip)).toBe(true);
+        
+        // Trigger animation end
+        playerCardElement.dispatchEvent(new Event('animationend'));
+        expect(playerCardElement.classList.contains(ANIMATIONS.classes.card.flip)).toBe(false);
+    });
+
+    test('should delay computer card animation', () => {
+        const computerCard = { value: '5', suit: '♠' };
+        ui.handleUpdateUI({ computerCard });
+        
+        // Should not exist immediately
+        expect(document.querySelector('.computer-card-slot div')).toBeNull();
+        
+        // Advance timer
+        jest.advanceTimersByTime(ANIMATIONS.duration.card * 1.5);
+        
+        const computerCardElement = document.querySelector('.computer-card-slot div');
+        expect(computerCardElement).toBeTruthy();
+        expect(computerCardElement.classList.contains(ANIMATIONS.classes.card.flip)).toBe(true);
     });
 });
 });
