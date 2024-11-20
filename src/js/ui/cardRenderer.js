@@ -14,7 +14,7 @@ export default class CardRenderer {
     // Create the main card container div element
     const cardDiv = document.createElement('div');
     // Add 'card' class and color class (red/black) based on the card's suit
-    cardDiv.classList.add("card", this.getColorClass(card));
+    cardDiv.classList.add("card", this.getColorClass(card), 'card-enter');
     
     // Create the top number/suit display
     const topNumber = document.createElement('div');

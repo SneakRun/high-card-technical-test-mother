@@ -178,11 +178,19 @@ body {
   justify-content: center;
   align-items: center;
   user-select: none;
-  animation: flipIn 0.6s ease-out;
   transform-style: preserve-3d;
   backface-visibility: hidden;
-  will-change: transform, opacity;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Add a new class for the initial flip-in */
+.card-enter {
+  animation: flipIn 0.6s ease-out;
+}
+
+/* Modify the exit animation to be more specific */
+.card.card-exit {
+  animation: fadeOut 0.3s ease-out forwards !important;
+  pointer-events: none;
 }
 
 /* Card Slot Styles */
