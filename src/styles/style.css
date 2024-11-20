@@ -96,20 +96,38 @@ body {
 /* Score Styles */
 .computer-score, .player-score {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-left: 1rem;
-  user-select: none;
-  padding: 0.5rem 1rem;
+  width: 4rem;
+  height: 4rem;
   background: var(--main-bg);
   border-radius: 10px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
-              color: var(--text-primary);
-  text-shadow: 1.5px 1.5px 2px var(--shadow-dark),
-              -1.5px -1.5px 2px var(--shadow-light);
+  color: var(--text-primary);
+  font-size: 3rem;
   font-weight: bold;
-  letter-spacing: 0.05em;
 }
+
+/* Score Container Styles */
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+  width: 4rem;
+}
+
+.score-label {
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  user-select: none;
+}
+
 
 /* Deck Styles */
 .deck {
@@ -120,7 +138,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 4rem;
   color: var(--text-primary);
   user-select: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -232,23 +250,6 @@ body {
   text-shadow: inherit;
 }
 
-/* Score Container Styles */
-.score-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    user-select: none;
-}
-
-.score-label {
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    user-select: none;
-}
 
 
 

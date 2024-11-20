@@ -82,8 +82,8 @@ export class UIManager {
 
     // Update the win counts display
     updateScoreDisplay(playerWins, computerWins) {
-        this.playerScoreElement.innerText = `Wins: ${playerWins}`;
-        this.computerScoreElement.innerText = `Wins: ${computerWins}`;
+        this.playerScoreElement.innerText = String(playerWins);
+        this.computerScoreElement.innerText = String(computerWins);
     }
 
     // Clear all UI elements (cards and text)
@@ -113,8 +113,8 @@ export class UIManager {
 
     // Reset score displays to zero
     resetScores() {
-        this.computerScoreElement.innerText = 'Wins: 0';
-        this.playerScoreElement.innerText = 'Wins: 0';
+        this.computerScoreElement.innerText = '0';
+        this.playerScoreElement.innerText = '0';
     }
 
     // Add to UIManager class
