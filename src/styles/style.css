@@ -12,10 +12,9 @@
   --deck-size: 120px;
   --card-size: 140px;
   --text-primary: #535f63;
-  --accent-blue: #74b9ff;
-  --accent-green: #55efc4;
   --accent-red: #db1d30;
   --accent-black: #0e0e0e;
+  --glow-pulse-duration: 0.8s;
 }
 
 /* Body Styles */
@@ -275,7 +274,7 @@ body {
 }
 
 .card.glow-pulse {
-    animation: glowPulse 1.5s ease-in-out;
+    animation: glowPulse var(--glow-pulse-duration) ease-in-out;
 }
 
 

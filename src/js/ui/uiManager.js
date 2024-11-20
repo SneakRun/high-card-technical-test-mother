@@ -67,7 +67,7 @@ export class UIManager {
             // This includes:
             // - 600ms for cards to appear
             // - 1500ms for glow pulse animation
-            setTimeout(resolve, 2100);
+            setTimeout(resolve, 600 + glowPulseDuration);
         });
     }
 
