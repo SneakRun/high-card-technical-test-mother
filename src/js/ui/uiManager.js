@@ -41,12 +41,14 @@ export class UIManager {
 
     // Display message when a round ends
     handleRoundEnd({ winner }) {
-        this.text.innerText = winner ? `${winner} wins!` : 'Draw!';
+        this.text.innerHTML = winner ? 
+            `<span>${winner} wins!</span>` : 
+            '<span>Draw!</span>';
     }
 
     // Display message when the game is over
     handleGameOver({ winner }) {
-        this.text.innerText = `${winner} wins the game!`;
+        this.text.innerHTML = `<span>${winner} wins the game!</span>`;
     }
 
     // Update score display when score changes

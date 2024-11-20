@@ -71,11 +71,32 @@ body {
   user-select: none;
   height: 4rem;
   width: 100%;
-  /* width: calc(var(--card-size) * 0.7); */
   padding: 1rem;
   font-size: 1.2rem;
   background: var(--main-bg);
   border-radius: 15px;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+              inset -2px -2px 5px var(--shadow-light);
+}
+
+/* Neumorphic Text Styles */
+.text span {
+  color: var(--text-primary);
+  text-shadow: 2px 2px 3px var(--shadow-dark),
+              -2px -2px 3px var(--shadow-light);
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+/* Score Styles */
+.computer-score, .player-score {
+  display: flex;
+  align-items: center;
+  margin-left: 1rem;
+  user-select: none;
+  padding: 0.5rem 1rem;
+  background: var(--main-bg);
+  border-radius: 10px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
 }
@@ -142,19 +163,6 @@ body {
   background: var(--main-bg);
   box-shadow: inset 3px 3px 7px var(--shadow-dark),
               inset -3px -3px 7px var(--shadow-light);
-}
-
-/* Score Styles */
-.computer-score, .player-score {
-    display: flex;
-    align-items: center;
-    margin-left: 1rem;
-    user-select: none;
-    padding: 0.5rem 1rem;
-    background: var(--main-bg);
-    border-radius: 10px;
-    box-shadow: inset 2px 2px 5px var(--shadow-dark),
-                inset -2px -2px 5px var(--shadow-light);
 }
 
 /* Card Color Styles */
