@@ -26,29 +26,48 @@ export class UIManager {
     }
 
     // Handle updating the UI with new card plays
+    // Returns a Promise that resolves after animations complete
     handleUpdateUI({ playerCard, computerCard }) {
         return new Promise(resolve => {
-            // Create and display player's card if present
+            // Handle player's card if one was played
             if (playerCard) {
+                // Create and add the card element to the player's slot
                 const playerCardElement = CardRenderer.createCardElement(playerCard);
                 this.playerCardSlot.appendChild(playerCardElement);
-                // Add glow after flip animation
+
+                // After card appears (600ms), add glow effect
                 setTimeout(() => {
+                    // Set glow color based on suit - cyan for clubs/spades, pink for hearts/diamonds
+                    const glowColor = playerCard.suit === '♣' || playerCard.suit === '♠' ? 
+                        'var(--accent-black)' : 'var(--accent-red)';
+                    playerCardElement.style.setProperty('--glow-color', glowColor);
+                    // Add pulsing glow animation class
                     playerCardElement.classList.add('glow-pulse');
                 }, 600);
             }
-            // Create and display computer's card if present
+
+            // Handle computer's card if one was played
             if (computerCard) {
+                // Create and add the card element to the computer's slot
                 const computerCardElement = CardRenderer.createCardElement(computerCard);
                 this.computerCardSlot.appendChild(computerCardElement);
-                // Add glow after flip animation
+
+                // After card appears (600ms), add glow effect
                 setTimeout(() => {
+                    // Set glow color based on suit - cyan for clubs/spades, pink for hearts/diamonds
+                    const glowColor = computerCard.suit === '♣' || computerCard.suit === '♠' ? 
+                        'var(--accent-black)' : 'var(--accent-red)';
+                    computerCardElement.style.setProperty('--glow-color', glowColor);
+                    // Add pulsing glow animation class
                     computerCardElement.classList.add('glow-pulse');
                 }, 600);
             }
 
-            // Wait for both flip and glow animations
-            setTimeout(resolve, 2100); // 600ms flip + 1500ms glow
+            // Resolve promise after animations complete (2100ms total)
+            // This includes:
+            // - 600ms for cards to appear
+            // - 1500ms for glow pulse animation
+            setTimeout(resolve, 2100);
         });
     }
 

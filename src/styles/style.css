@@ -14,9 +14,8 @@
   --text-primary: #535f63;
   --accent-blue: #74b9ff;
   --accent-green: #55efc4;
-  --accent-pink: #db1daf;
-  --accent-cyan: #18c1c4;
-  
+  --accent-red: #db1d30;
+  --accent-black: #0e0e0e;
 }
 
 /* Body Styles */
@@ -205,14 +204,14 @@ body {
 
 /* Card Color Styles */
 .card.red {
-  color: var(--accent-pink);
+  color: var(--accent-red);
   text-shadow: 0 0 10px rgba(219, 29, 175, 0.5);
 }
 
 /* Card Black Styles */
 .card.black {
-  color: var(--accent-cyan);
-  text-shadow: 0 0 10px rgba(24, 193, 196, 0.5);
+  color: var(--accent-black);
+  text-shadow: 0 0 10px rgba(14, 14, 14, 0.5);
 }
 
 /* Card Value Styles */
@@ -267,7 +266,7 @@ body {
     50% {
         box-shadow: inset 2px 2px 5px var(--shadow-dark),
                    inset -2px -2px 5px var(--shadow-light),
-                   0 0 20px var(--accent-blue);
+                   0 0 20px var(--glow-color);
     }
     100% {
         box-shadow: inset 2px 2px 5px var(--shadow-dark),
