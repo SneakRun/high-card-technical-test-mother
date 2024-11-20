@@ -31,10 +31,15 @@ class GameEventEmitter {
      * @param {*} data - Optional data to pass to the callback functions
      */
     emit(event, data) {
-        // If this event has listeners, call each callback with the event data
         if (this.listeners.has(event)) {
-            this.listeners.get(event).forEach(callback => callback(data));
+            const results = this.listeners.get(event).map(callback => callback(data));
+            // If any listener returns a promise, wait for it
+            if (results.some(result => result instanceof Promise)) {
+                return Promise.all(results);
+            }
+            return Promise.resolve();
         }
+        return Promise.resolve();
     }
 
     /**

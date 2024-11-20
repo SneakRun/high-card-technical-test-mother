@@ -27,16 +27,21 @@ export class UIManager {
 
     // Handle updating the UI with new card plays
     handleUpdateUI({ playerCard, computerCard }) {
-        // Create and display player's card if present
-        if (playerCard) {
-            const playerCardElement = CardRenderer.createCardElement(playerCard);
-            this.playerCardSlot.appendChild(playerCardElement);
-        }
-        // Create and display computer's card if present
-        if (computerCard) {
-            const computerCardElement = CardRenderer.createCardElement(computerCard);
-            this.computerCardSlot.appendChild(computerCardElement);
-        }
+        return new Promise(resolve => {
+            // Create and display player's card if present
+            if (playerCard) {
+                const playerCardElement = CardRenderer.createCardElement(playerCard);
+                this.playerCardSlot.appendChild(playerCardElement);
+            }
+            // Create and display computer's card if present
+            if (computerCard) {
+                const computerCardElement = CardRenderer.createCardElement(computerCard);
+                this.computerCardSlot.appendChild(computerCardElement);
+            }
+    
+            // Wait for animation to complete (0.6s)
+            setTimeout(resolve, 600);
+        });
     }
 
     // Display message when a round ends

@@ -35,25 +35,24 @@ export class HighCardGame {
     }
 
     // Execute one round of play
-    flipCards() {
+    async flipCards() {
         this.inRound = true;
-        // Both players draw top card from their deck
         const computerCard = this.computerDeck.pop();
         const playerCard = this.playerDeck.pop();
         
-        // Notify UI to display the cards played
-        gameEvents.emit(GAME_EVENTS.UPDATE_UI, { playerCard, computerCard });
+        // Wait for cards to be rendered and animation to complete
+        await gameEvents.emit(GAME_EVENTS.UPDATE_UI, { playerCard, computerCard });
         
         // Determine and handle round winner
         const winner = this.declareWinner(playerCard, computerCard);
         if (winner) this.updateScore(winner);
         
-        // Check if game should end (when either deck is empty)
+        // Check if game should end
         if (this.isGameOver()) {
             this.gameOverState = true;
         }
         
-        // Notify UI of round result
+        // Notify UI of round result after animation
         gameEvents.emit(GAME_EVENTS.ROUND_END, { winner });
     }
 
