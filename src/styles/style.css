@@ -117,8 +117,6 @@ body {
   width: var(--deck-size);
   border-radius: 15px;
   background: var(--main-bg);
-  box-shadow: 5px 5px 10px var(--shadow-dark),
-              -5px -5px 10px var(--shadow-light);
   display: flex;
   justify-content: center;
   align-items: center;

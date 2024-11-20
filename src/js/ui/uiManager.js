@@ -69,32 +69,15 @@ export class UIManager {
         const computerShadow = this.calculateShadowSize(computerCount);
         const playerShadow = this.calculateShadowSize(playerCount);
         
-        // Update the deck elements with the calculated shadows
         this.computerDeckElement.style.boxShadow = `
             ${computerShadow}px ${computerShadow}px ${computerShadow * 2}px var(--shadow-dark),
             -${computerShadow}px -${computerShadow}px ${computerShadow * 2}px var(--shadow-light)
         `;
         
-        // Update the player deck element with the calculated shadow
         this.playerDeckElement.style.boxShadow = `
             ${playerShadow}px ${playerShadow}px ${playerShadow * 2}px var(--shadow-dark),
             -${playerShadow}px -${playerShadow}px ${playerShadow * 2}px var(--shadow-light)
         `;
-        
-        // Calculate height (max: 120px, min: 100px)
-        const calculateHeight = (count) => {
-            const maxHeight = 120;
-            const minHeight = 100;
-            return Math.max(minHeight, (count / 26) * maxHeight);
-        };
-        
-        const computerHeight = calculateHeight(computerCount);
-        const playerHeight = calculateHeight(playerCount);
-        
-        this.computerDeckElement.style.height = `${computerHeight}px`;
-        this.computerDeckElement.style.width = `${computerHeight}px`;
-        this.playerDeckElement.style.height = `${playerHeight}px`;
-        this.playerDeckElement.style.width = `${playerHeight}px`;
     }
 
     // Update the win counts display
@@ -137,8 +120,8 @@ export class UIManager {
     // Add to UIManager class
     calculateShadowSize(cardCount) {
         // Max shadow at 26 cards (full deck), min at 0
-        const maxShadow = 5;
-        const minShadow = 2;
+        const maxShadow = 8;
+        const minShadow = 0;
         const shadowSize = Math.max(
             minShadow,
             (cardCount / 26) * maxShadow
