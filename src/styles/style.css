@@ -96,18 +96,19 @@ body {
 /* Score Styles */
 .computer-score, .player-score {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: 3rem;
+  margin-left: 1rem;
+  user-select: none;
+  padding: 0.5rem 1rem;
   background: var(--main-bg);
   border-radius: 10px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
-  color: var(--text-primary);
-  font-size: 1.5rem;
+              color: var(--text-primary);
+  text-shadow: 1.5px 1.5px 2px var(--shadow-dark),
+              -1.5px -1.5px 2px var(--shadow-light);
   font-weight: bold;
-  user-select: none;
+  letter-spacing: 0.05em;
 }
 
 /* Deck Styles */
@@ -119,18 +120,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3.5rem;
+  font-size: 2rem;
   color: var(--text-primary);
   user-select: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Deck Hover Styles */
-/* .deck:hover {
-    transform: translateY(-5px);
-    box-shadow: 8px 8px 16px var(--shadow-dark),
-                -8px -8px 16px var(--shadow-light);
-} */
+.deck:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+              -8px -8px 16px var(--shadow-light);
+}
 
 /* Card Animation Styles */
 @keyframes flipIn {

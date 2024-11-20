@@ -82,8 +82,8 @@ export class UIManager {
 
     // Update the win counts display
     updateScoreDisplay(playerWins, computerWins) {
-        this.playerScoreElement.innerText = String(playerWins);
-        this.computerScoreElement.innerText = String(computerWins);
+        this.playerScoreElement.innerText = `Wins: ${playerWins}`;
+        this.computerScoreElement.innerText = `Wins: ${computerWins}`;
     }
 
     // Clear all UI elements (cards and text)
@@ -113,8 +113,8 @@ export class UIManager {
 
     // Reset score displays to zero
     resetScores() {
-        this.computerScoreElement.innerText = '0';
-        this.playerScoreElement.innerText = '0';
+        this.computerScoreElement.innerText = 'Wins: 0';
+        this.playerScoreElement.innerText = 'Wins: 0';
     }
 
     // Add to UIManager class
@@ -122,9 +122,10 @@ export class UIManager {
         // Max shadow at 26 cards (full deck), min at 0
         const maxShadow = 8;
         const minShadow = 0;
-        return Math.max(
+        const shadowSize = Math.max(
             minShadow,
             (cardCount / 26) * maxShadow
         );
+        return shadowSize;
     }
 }
