@@ -123,4 +123,23 @@ describe('UI Cleanup', () => {
         }, 350); // Slightly longer than animation duration
     });
 });
+
+describe('Deck Animation', () => {
+    test('should update deck styles with count', () => {
+        ui.updateDeckCount(26, 13);
+        
+        const computerDeck = document.querySelector('.computer-deck');
+        const playerDeck = document.querySelector('.player-deck');
+        
+        // Check text content
+        expect(computerDeck.innerText).toBe('13');
+        expect(playerDeck.innerText).toBe('26');
+        
+        // Check if styles were applied
+        expect(computerDeck.style.boxShadow).toBeTruthy();
+        expect(playerDeck.style.boxShadow).toBeTruthy();
+        expect(computerDeck.style.height).toBeTruthy();
+        expect(playerDeck.style.height).toBeTruthy();
+    });
+});
 });
