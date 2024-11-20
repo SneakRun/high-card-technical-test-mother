@@ -11,7 +11,7 @@
   --card-bg: #e8ecf3;
   --deck-size: 120px;
   --card-size: 140px;
-  --text-primary: #2d3436;
+  --text-primary: #535f63;
   --accent-blue: #74b9ff;
   --accent-green: #55efc4;
 }
@@ -77,16 +77,21 @@ body {
   border-radius: 15px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
-}
-
-/* Neumorphic Text Styles */
-.text span {
   color: var(--text-primary);
   text-shadow: 2px 2px 3px var(--shadow-dark),
               -2px -2px 3px var(--shadow-light);
   font-weight: bold;
   letter-spacing: 0.05em;
 }
+
+/* Neumorphic Text Styles */
+/* .text span {
+  color: var(--text-primary);
+  text-shadow: 2px 2px 3px var(--shadow-dark),
+              -2px -2px 3px var(--shadow-light);
+  font-weight: bold;
+  letter-spacing: 0.05em;
+} */
 
 /* Score Styles */
 .computer-score, .player-score {
@@ -99,6 +104,11 @@ body {
   border-radius: 10px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
+              color: var(--text-primary);
+  text-shadow: 1.5px 1.5px 2px var(--shadow-dark),
+              -1.5px -1.5px 2px var(--shadow-light);
+  font-weight: bold;
+  letter-spacing: 0.05em;
 }
 
 /* Deck Styles */
