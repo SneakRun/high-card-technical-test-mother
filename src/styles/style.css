@@ -96,19 +96,18 @@ body {
 /* Score Styles */
 .computer-score, .player-score {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-left: 1rem;
-  user-select: none;
-  padding: 0.5rem 1rem;
+  width: 3rem;
+  height: 3rem;
   background: var(--main-bg);
   border-radius: 10px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
-              color: var(--text-primary);
-  text-shadow: 1.5px 1.5px 2px var(--shadow-dark),
-              -1.5px -1.5px 2px var(--shadow-light);
+  color: var(--text-primary);
+  font-size: 1.5rem;
   font-weight: bold;
-  letter-spacing: 0.05em;
+  user-select: none;
 }
 
 /* Deck Styles */
@@ -127,11 +126,11 @@ body {
 }
 
 /* Deck Hover Styles */
-.deck:hover {
-  transform: translateY(-5px);
-  box-shadow: 8px 8px 16px var(--shadow-dark),
-              -8px -8px 16px var(--shadow-light);
-}
+/* .deck:hover {
+    transform: translateY(-5px);
+    box-shadow: 8px 8px 16px var(--shadow-dark),
+                -8px -8px 16px var(--shadow-light);
+} */
 
 /* Card Animation Styles */
 @keyframes flipIn {
@@ -234,6 +233,22 @@ body {
 /* Card Suit Styles */
 .card-suit {
   font-size: 3rem;
+}
+
+/* Score Container Styles */
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.score-label {
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 

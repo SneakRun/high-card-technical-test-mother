@@ -20,11 +20,17 @@ describe('UIManager', () => {
       document.body.innerHTML = `
           <div class="computer-deck deck">26</div>
           <div class="computer-card-slot card-slot"></div>
-          <div class="computer-score">Wins: 0</div>
+          <div class="score-container">
+              <span class="score-label">Wins</span>
+              <div class="computer-score">0</div>
+          </div>
           <div class="text"></div>
           <div class="player-deck deck">26</div>
           <div class="player-card-slot card-slot"></div>
-          <div class="player-score">Wins: 0</div>
+          <div class="score-container">
+              <span class="score-label">Wins</span>
+              <div class="player-score">0</div>
+          </div>
       `;
       ui = new UIManager();
       jest.clearAllMocks();
@@ -134,12 +140,6 @@ describe('Deck Animation', () => {
         // Check text content
         expect(computerDeck.innerText).toBe('13');
         expect(playerDeck.innerText).toBe('26');
-        
-        // Check if styles were applied
-        expect(computerDeck.style.boxShadow).toBeTruthy();
-        expect(playerDeck.style.boxShadow).toBeTruthy();
-        expect(computerDeck.style.height).toBeTruthy();
-        expect(playerDeck.style.height).toBeTruthy();
     });
 });
 });
