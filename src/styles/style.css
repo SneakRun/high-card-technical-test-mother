@@ -61,24 +61,17 @@ body {
   align-items: center;
   gap: 2rem;
   min-height: 200px;
-  position: relative;
-}
-
-.computer-field {
-    margin-bottom: 6rem;
 }
 
 /* Text Styles */
 .text {
-  position: absolute;
-  bottom: -6rem;
-  left: 48%;
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
   height: 4rem;
-  width: calc(var(--card-size) * 0.7);
+  width: 100%;
+  /* width: calc(var(--card-size) * 0.7); */
   padding: 1rem;
   font-size: 1.2rem;
   background: var(--main-bg);
