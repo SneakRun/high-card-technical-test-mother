@@ -30,12 +30,10 @@ export class UIManager {
     handleUpdateUI({ playerCard, computerCard }) {
         // Create and display player's card if present
         if (playerCard) {
-            // Add slight delay for player's card
             const playerCardElement = CardRenderer.createCardElement(playerCard);
             playerCardElement.classList.add(ANIMATIONS.classes.card.flip);
             this.playerCardSlot.appendChild(playerCardElement);
             
-            // Remove animation class after it completes
             playerCardElement.addEventListener('animationend', () => {
                 playerCardElement.classList.remove(ANIMATIONS.classes.card.flip);
             });
@@ -43,24 +41,34 @@ export class UIManager {
 
         // Create and display computer's card if present
         if (computerCard) {
-            // Add slight delay for computer's card
             setTimeout(() => {
-                // Create and display computer's card
                 const computerCardElement = CardRenderer.createCardElement(computerCard);
                 computerCardElement.classList.add(ANIMATIONS.classes.card.flip);
                 this.computerCardSlot.appendChild(computerCardElement);
                 
-                // Remove animation class after it completes
+                // Listen for computer card animation end
                 computerCardElement.addEventListener('animationend', () => {
                     computerCardElement.classList.remove(ANIMATIONS.classes.card.flip);
+                    
+                    // Add slight delay before showing results
+                    setTimeout(() => {
+                        // Emit event for score and message updates
+                        gameEvents.emit(GAME_EVENTS.ROUND_COMPLETE, {
+                            winner: this.determineWinner(playerCard, computerCard)
+                        });
+                    }, ANIMATIONS.duration.message / 2);
                 });
-            }, ANIMATIONS.duration.card * 1.5);// 1.5s duration to stagger cards
+            }, ANIMATIONS.duration.card * 1.5);
         }
     }
 
     // Display message when a round ends
     handleRoundEnd({ winner }) {
         this.text.innerText = winner ? `${winner} wins!` : 'Draw!';
+        this.text.classList.add(ANIMATIONS.classes.message);
+        this.text.addEventListener('animationend', () => {
+            this.text.classList.remove(ANIMATIONS.classes.message);
+        });
     }
 
     // Display message when the game is over
@@ -71,6 +79,17 @@ export class UIManager {
     // Update score display when score changes
     handleScoreUpdate({ playerWins, computerWins }) {
         this.updateScoreDisplay(playerWins, computerWins);
+        this.playerScoreElement.classList.add(ANIMATIONS.classes.score);
+        this.computerScoreElement.classList.add(ANIMATIONS.classes.score);
+        
+        const removeAnimation = (element) => {
+            element.addEventListener('animationend', () => {
+                element.classList.remove(ANIMATIONS.classes.score);
+            });
+        };
+        
+        removeAnimation(this.playerScoreElement);
+        removeAnimation(this.computerScoreElement);
     }
 
     // Update the displayed deck counts
