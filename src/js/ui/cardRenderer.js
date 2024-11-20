@@ -30,10 +30,22 @@ export default class CardRenderer {
     // Set the content to just show the suit symbol (e.g. "♠")
     centerSuit.textContent = card.suit;
     
-    // Add elements to card container
-    cardDiv.appendChild(topNumber);
-    cardDiv.appendChild(centerSuit);
+    // Create the bottom number/suit display (mirror of top)
+    const bottomNumber = document.createElement('div');
+    // Add classes for styling the bottom value
+    bottomNumber.classList.add('card-value', 'bottom');
+    // Set the same content as top - CSS will handle inversion
+    bottomNumber.textContent = `${card.value}${card.suit}`;
     
+    // Add all elements to the card container in order:
+    // 1. Top number/suit
+    cardDiv.appendChild(topNumber);
+    // 2. Center suit
+    cardDiv.appendChild(centerSuit);
+    // 3. Bottom number/suit
+    cardDiv.appendChild(bottomNumber);
+    
+    // Return the fully constructed card element
     return cardDiv;
 }
 

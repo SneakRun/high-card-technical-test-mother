@@ -12,9 +12,8 @@
   --deck-size: 120px;
   --card-size: 140px;
   --text-primary: #535f63;
-  --accent-red: #db1d30;
-  --accent-black: #0e0e0e;
-  --glow-pulse-duration: 0.8s;
+  --accent-blue: #74b9ff;
+  --accent-green: #55efc4;
 }
 
 /* Body Styles */
@@ -97,18 +96,19 @@ body {
 /* Score Styles */
 .computer-score, .player-score {
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: 3rem;
+  margin-left: 1rem;
+  user-select: none;
+  padding: 0.5rem 1rem;
   background: var(--main-bg);
   border-radius: 10px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
               inset -2px -2px 5px var(--shadow-light);
-  color: var(--text-primary);
-  font-size: 1.5rem;
+              color: var(--text-primary);
+  text-shadow: 1.5px 1.5px 2px var(--shadow-dark),
+              -1.5px -1.5px 2px var(--shadow-light);
   font-weight: bold;
-  user-select: none;
+  letter-spacing: 0.05em;
 }
 
 /* Deck Styles */
@@ -120,18 +120,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 3.5rem;
+  font-size: 2rem;
   color: var(--text-primary);
   user-select: none;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Deck Hover Styles */
-/* .deck:hover {
-    transform: translateY(-5px);
-    box-shadow: 8px 8px 16px var(--shadow-dark),
-                -8px -8px 16px var(--shadow-light);
-} */
+.deck:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+              -8px -8px 16px var(--shadow-light);
+}
 
 /* Card Animation Styles */
 @keyframes flipIn {
@@ -203,14 +203,12 @@ body {
 
 /* Card Color Styles */
 .card.red {
-  color: var(--accent-red);
-  text-shadow: 0 0 10px rgba(219, 29, 175, 0.5);
+  color: #e74c3c;
 }
 
 /* Card Black Styles */
 .card.black {
-  color: var(--accent-black);
-  text-shadow: 0 0 10px rgba(14, 14, 14, 0.5);
+  color: #2d3436;
 }
 
 /* Card Value Styles */
@@ -235,46 +233,7 @@ body {
 
 /* Card Suit Styles */
 .card-suit {
-  font-size: 7rem;
-  text-shadow: inherit;
-}
-
-/* Score Container Styles */
-.score-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    user-select: none;
-}
-
-.score-label {
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    user-select: none;
-}
-
-@keyframes glowPulse {
-    0% {
-        box-shadow: inset 2px 2px 5px var(--shadow-dark),
-                   inset -2px -2px 5px var(--shadow-light);
-    }
-    50% {
-        box-shadow: inset 2px 2px 5px var(--shadow-dark),
-                   inset -2px -2px 5px var(--shadow-light),
-                   0 0 20px var(--glow-color);
-    }
-    100% {
-        box-shadow: inset 2px 2px 5px var(--shadow-dark),
-                   inset -2px -2px 5px var(--shadow-light);
-    }
-}
-
-.card.glow-pulse {
-    animation: glowPulse var(--glow-pulse-duration) ease-in-out;
+  font-size: 3rem;
 }
 
 
