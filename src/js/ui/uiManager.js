@@ -113,8 +113,8 @@ export class UIManager {
 
     // Reset score displays to zero
     resetScores() {
-        this.computerScoreElement.innerText = 'Wins: 0';
-        this.playerScoreElement.innerText = 'Wins: 0';
+        this.computerScoreElement.innerText = '0';
+        this.playerScoreElement.innerText = '0';
     }
 
     // Add to UIManager class

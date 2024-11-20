@@ -78,15 +78,15 @@ describe('Card Rendering', () => {
 describe('Score Management', () => {
     test('should update score display correctly', () => {
         ui.updateScoreDisplay(2, 1);
-        expect(document.querySelector('.player-score').innerText).toBe('Wins: 2');
-        expect(document.querySelector('.computer-score').innerText).toBe('Wins: 1');
+        expect(document.querySelector('.player-score').innerText).toBe('2');
+        expect(document.querySelector('.computer-score').innerText).toBe('1');
     });
 
     test('should reset scores correctly', () => {
         ui.updateScoreDisplay(5, 3);
         ui.resetScores();
-        expect(document.querySelector('.player-score').innerText).toBe('Wins: 0');
-        expect(document.querySelector('.computer-score').innerText).toBe('Wins: 0');
+        expect(document.querySelector('.player-score').innerText).toBe('0');
+        expect(document.querySelector('.computer-score').innerText).toBe('0');
     });
 });
 
