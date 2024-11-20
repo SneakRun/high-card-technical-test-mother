@@ -12,8 +12,8 @@
   --deck-size: 120px;
   --card-size: 140px;
   --text-primary: #535f63;
-  --accent-blue: #74b9ff;
-  --accent-green: #55efc4;
+  --accent-black: #0e0e0e;
+  --accent-red: #db1d30;
 }
 
 /* Body Styles */
@@ -202,12 +202,14 @@ body {
 
 /* Card Color Styles */
 .card.red {
-  color: #db1daf;
+  color: var(--accent-red);
+  text-shadow: 0 0 10px rgba(219, 29, 175, 0.5);
 }
 
 /* Card Black Styles */
 .card.black {
-  color: #18c1c4;
+  color: var(--accent-black);
+  text-shadow: 0 0 10px rgba(14, 14, 14, 0.5);
 }
 
 /* Card Value Styles */
@@ -223,16 +225,10 @@ body {
   left: 0;
 }
 
-/* Card Value Bottom Styles */
-.card-value.bottom {
-  bottom: 0;
-  right: 0;
-  transform: rotate(180deg);
-}
-
 /* Card Suit Styles */
 .card-suit {
   font-size: 7rem;
+  text-shadow: inherit;
 }
 
 /* Score Container Styles */
