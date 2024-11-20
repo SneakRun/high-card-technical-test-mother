@@ -2,13 +2,21 @@
   box-sizing: border-box;
 }
 
+/* Global Variables */
 :root {
-    --main-bg: #e0e5ec;
-    --shadow-light: #ffffff;
-    --shadow-dark: #a3b1c6;
-    --field-padding: 2rem;
+  --main-bg: #e0e5ec;
+  --shadow-light: #ffffff;
+  --shadow-dark: #a3b1c6;
+  --field-padding: 2rem;
+  --card-bg: #e8ecf3;
+  --deck-size: 120px;
+  --card-size: 140px;
+  --text-primary: #2d3436;
+  --accent-blue: #74b9ff;
+  --accent-green: #55efc4;
 }
 
+/* Body Styles */
 body {
     margin: 0;
     min-height: 100vh;
@@ -19,6 +27,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* Game Container Styles */
 .game-container {
     width: 90%;
     max-width: 1200px;
@@ -28,6 +37,7 @@ body {
     gap: 2rem;
 }
 
+/* Playing Field Styles */
 .playing-field {
     padding: var(--field-padding);
     border-radius: 20px;
@@ -35,31 +45,63 @@ body {
     box-shadow: 8px 8px 16px var(--shadow-dark),
                 -8px -8px 16px var(--shadow-light);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
+    gap: 2rem;
+    min-height: 200px;
 }
 
+/* Deck Styles */
 .deck {
-  height: 100%;
-  width: 100%;
-  border: 1px solid black;
+  height: var(--deck-size);
+  width: var(--deck-size);
+  border-radius: 15px;
+  background: var(--main-bg);
+  box-shadow: 5px 5px 10px var(--shadow-dark),
+              -5px -5px 10px var(--shadow-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--text-primary);
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+/* Deck Hover Styles */
+.deck:hover {
+  transform: translateY(-5px);
+  box-shadow: 8px 8px 16px var(--shadow-dark),
+              -8px -8px 16px var(--shadow-light);
+}
+
+/* Card Styles */
+.card {
+  height: var(--card-size);
+  width: calc(var(--card-size) * 0.7);
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: inset 2px 2px 5px var(--shadow-dark),
+              inset -2px -2px 5px var(--shadow-light);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3rem;
-  border-radius: 0.5rem;
-  color: rgb(255, 255, 255);
   user-select: none;
+  transition: transform 0.3s ease;
 }
 
-.computer-deck {
-  background-color: #777dff;
+/* Card Slot Styles */
+.card-slot {
+  height: var(--card-size);
+  width: calc(var(--card-size) * 0.7);
+  border-radius: 15px;
+  background: var(--main-bg);
+  box-shadow: inset 3px 3px 7px var(--shadow-dark),
+              inset -3px -3px 7px var(--shadow-light);
 }
 
-.player-deck {
-  background-color: #439c5c;
-}
-
+/* Text Styles */
 .text {
   grid-column: span 2;
   display: flex;
@@ -76,29 +118,17 @@ body {
   align-items: center;
 }
 
-.computer-score {
+/* Computer Score Styles */
+.computer-score { 
   grid-row: 1;
 }
 
+/* Player Score Styles */
 .player-score {
   grid-row: 3;
 }
 
-/* Card Styles*/
-.card {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  border: 1px solid black;
-  border-radius: 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 4rem;
-  user-select: none;
-}
-
-
+/* Card Color Styles */
 .card.red {
   color: red;
 }
@@ -107,6 +137,7 @@ body {
   color: black;
 }
 
+/* Card Value Styles */
 .card::before,
 .card::after {
   position: absolute;
@@ -115,11 +146,13 @@ body {
   user-select: none;
 }
 
+/* Card Value Position Styles */
 .card::before {
   top: 0.5rem;
   left: 0.5rem;
 }
 
+/* Card Value Position Styles */
 .card::after {
   bottom: 0.5rem;
   right: 0.5rem;
