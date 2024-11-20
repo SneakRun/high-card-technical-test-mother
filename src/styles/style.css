@@ -82,8 +82,8 @@ body {
 
 /* Deck Styles */
 .deck {
-  height: var(--card-size);
-  width: calc(var(--card-size) * 0.7);
+  height: var(--deck-size);
+  width: var(--deck-size);
   border-radius: 15px;
   background: var(--main-bg);
   box-shadow: 5px 5px 10px var(--shadow-dark),
