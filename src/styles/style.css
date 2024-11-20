@@ -14,6 +14,9 @@
   --text-primary: #535f63;
   --accent-blue: #74b9ff;
   --accent-green: #55efc4;
+  --accent-pink: #db1daf;
+  --accent-cyan: #18c1c4;
+  
 }
 
 /* Body Styles */
@@ -202,12 +205,14 @@ body {
 
 /* Card Color Styles */
 .card.red {
-  color: #db1daf;
+  color: var(--accent-pink);
+  text-shadow: 0 0 10px rgba(219, 29, 175, 0.5);
 }
 
 /* Card Black Styles */
 .card.black {
-  color: #18c1c4;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 10px rgba(24, 193, 196, 0.5);
 }
 
 /* Card Value Styles */
@@ -233,6 +238,7 @@ body {
 /* Card Suit Styles */
 .card-suit {
   font-size: 7rem;
+  text-shadow: inherit;
 }
 
 /* Score Container Styles */
@@ -251,6 +257,26 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     user-select: none;
+}
+
+@keyframes glowPulse {
+    0% {
+        box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                   inset -2px -2px 5px var(--shadow-light);
+    }
+    50% {
+        box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                   inset -2px -2px 5px var(--shadow-light),
+                   0 0 20px var(--accent-blue);
+    }
+    100% {
+        box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                   inset -2px -2px 5px var(--shadow-light);
+    }
+}
+
+.card.glow-pulse {
+    animation: glowPulse 1.5s ease-in-out;
 }
 
 

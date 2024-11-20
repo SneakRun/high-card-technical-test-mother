@@ -32,15 +32,23 @@ export class UIManager {
             if (playerCard) {
                 const playerCardElement = CardRenderer.createCardElement(playerCard);
                 this.playerCardSlot.appendChild(playerCardElement);
+                // Add glow after flip animation
+                setTimeout(() => {
+                    playerCardElement.classList.add('glow-pulse');
+                }, 600);
             }
             // Create and display computer's card if present
             if (computerCard) {
                 const computerCardElement = CardRenderer.createCardElement(computerCard);
                 this.computerCardSlot.appendChild(computerCardElement);
+                // Add glow after flip animation
+                setTimeout(() => {
+                    computerCardElement.classList.add('glow-pulse');
+                }, 600);
             }
-    
-            // Wait for animation to complete (0.6s)
-            setTimeout(resolve, 600);
+
+            // Wait for both flip and glow animations
+            setTimeout(resolve, 2100); // 600ms flip + 1500ms glow
         });
     }
 
