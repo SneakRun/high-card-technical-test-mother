@@ -82,8 +82,8 @@ body {
 
 /* Deck Styles */
 .deck {
-  height: var(--deck-size);
-  width: var(--deck-size);
+  height: var(--card-size);
+  width: calc(var(--card-size) * 0.7);
   border-radius: 15px;
   background: var(--main-bg);
   box-shadow: 5px 5px 10px var(--shadow-dark),
@@ -146,23 +146,15 @@ body {
 
 /* Score Styles */
 .computer-score, .player-score {
-  margin-left: 1rem;
-  grid-column: 3;
-  display: flex;
-  align-items: center;
-  user-select: none;
-}
-
-/* Computer Score Styles */
-.computer-score { 
-  grid-row: 1;
-  user-select: none;
-}
-
-/* Player Score Styles */
-.player-score {
-  grid-row: 3;
-  user-select: none;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    user-select: none;
+    padding: 0.5rem 1rem;
+    background: var(--main-bg);
+    border-radius: 10px;
+    box-shadow: inset 2px 2px 5px var(--shadow-dark),
+                inset -2px -2px 5px var(--shadow-light);
 }
 
 /* Card Color Styles */
