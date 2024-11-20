@@ -1,6 +1,7 @@
 // Import required modules
 import CardRenderer from './cardRenderer.js';
 import { gameEvents, GAME_EVENTS } from '../events/gameEvents.js';
+import { ANIMATIONS } from '../config/animationConfig.js';
 
 export class UIManager {
     // Initialize UI elements and event listeners
@@ -29,13 +30,31 @@ export class UIManager {
     handleUpdateUI({ playerCard, computerCard }) {
         // Create and display player's card if present
         if (playerCard) {
+            // Add slight delay for player's card
             const playerCardElement = CardRenderer.createCardElement(playerCard);
+            playerCardElement.classList.add(ANIMATIONS.classes.card.flip);
             this.playerCardSlot.appendChild(playerCardElement);
+            
+            // Remove animation class after it completes
+            playerCardElement.addEventListener('animationend', () => {
+                playerCardElement.classList.remove(ANIMATIONS.classes.card.flip);
+            });
         }
+
         // Create and display computer's card if present
         if (computerCard) {
-            const computerCardElement = CardRenderer.createCardElement(computerCard);
-            this.computerCardSlot.appendChild(computerCardElement);
+            // Add slight delay for computer's card
+            setTimeout(() => {
+                // Create and display computer's card
+                const computerCardElement = CardRenderer.createCardElement(computerCard);
+                computerCardElement.classList.add(ANIMATIONS.classes.card.flip);
+                this.computerCardSlot.appendChild(computerCardElement);
+                
+                // Remove animation class after it completes
+                computerCardElement.addEventListener('animationend', () => {
+                    computerCardElement.classList.remove(ANIMATIONS.classes.card.flip);
+                });
+            }, ANIMATIONS.duration.card * 1.5);// 1.5s duration to stagger cards
         }
     }
 
