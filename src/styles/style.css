@@ -19,7 +19,7 @@
 /* Main Title Styles */
 .main-title {
   position: absolute;
-  top: -3.5rem;
+  top: -4rem;
   left: 1rem;
   font-size: 2.5rem;
   font-weight: bold;
@@ -229,10 +229,9 @@ body {
   color: var(--text-primary);
   font-size: 1rem;
   font-weight: bold;
-  text-shadow: 1px 1px 1px var(--shadow-light),
-              -1px -1px 1px var(--shadow-dark);
+  text-shadow: 0.5px 0.5px 0.5px var(--shadow-light),
+              -0.5px -0.5px 0.5px var(--shadow-dark);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
   user-select: none;
 }
 
