@@ -16,6 +16,22 @@
   --accent-red: #db1d30;
 }
 
+/* Main Title Styles */
+.main-title {
+  position: absolute;
+  top: -4rem;
+  left: 1rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--card-bg);
+  text-align: left;
+  padding: -0.5rem;
+  border-radius: 15px;
+  text-shadow: 1px 1px 1px var(--shadow-light),
+              -1px -1px 1px var(--shadow-dark);
+  user-select: none;
+}
+
 /* Background Animation Container */
 .background-animation {
     position: fixed;
@@ -136,6 +152,7 @@ body {
   align-items: center;
   gap: 2rem;
   min-height: 200px;
+  position: relative;
 }
 
 /* Text Styles */
@@ -148,6 +165,8 @@ body {
   width: 100%;
   padding: 1rem;
   font-size: 1.2rem;
+  text-shadow: 1px 1px 1px var(--shadow-light),
+              -1px -1px 1px var(--shadow-dark);
   background: var(--main-bg);
   border-radius: 15px;
   box-shadow: inset 2px 2px 5px var(--shadow-dark),
@@ -157,6 +176,16 @@ body {
               -2px -2px 3px var(--shadow-light);
   font-weight: bold;
   letter-spacing: 0.05em;
+}
+
+/* Text Animation Styles */
+.text.text-enter {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Text Exit Animation Styles */
+.text.text-exit {
+  animation: fadeOut 0.3s ease-out forwards;
 }
 
 /* Neumorphic Text Styles */
@@ -182,6 +211,8 @@ body {
   color: var(--text-primary);
   font-size: 3rem;
   font-weight: bold;
+  text-shadow: 1px 1px 1px var(--shadow-light),
+              -1px -1px 1px var(--shadow-dark);
 }
 
 /* Score Container Styles */
@@ -198,8 +229,9 @@ body {
   color: var(--text-primary);
   font-size: 1rem;
   font-weight: bold;
+  text-shadow: 0.5px 0.5px 0.5px var(--shadow-light),
+              -0.5px -0.5px 0.5px var(--shadow-dark);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
   user-select: none;
 }
 
@@ -214,6 +246,8 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 4rem;
+    text-shadow: 1px 1px 1px var(--shadow-light),
+              -1px -1px 1px var(--shadow-dark);
     color: var(--text-primary);
     user-select: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -279,9 +313,21 @@ body {
   }
 }
 
+/* Fade In Animation Styles */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: rotateY(0) scale(1);
+  }
+  to {
+      opacity: 1;
+      transform: rotateY(0) scale(1);
+  }
+}
+
 /* Card Styles */
 .card {
-  position: relative;
+  position: absolute;
   height: var(--card-size);
   width: calc(var(--card-size) * 0.7);
   background: var(--card-bg);
