@@ -2,7 +2,7 @@
   "name": "high-card-technical-test-mother",
   "version": "1.0.0",
   "description": "",
-  "main": "cardRenderer.js",
+  "main": "src/js/script.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
