@@ -145,33 +145,40 @@ body {
     position: relative;
     box-shadow: 8px 8px 16px var(--shadow-dark),
                 -8px -8px 16px var(--shadow-light);
+    overflow: hidden;
 }
 
 /* Deck Hover Styles */
-.deck:hover {
-    box-shadow: 12px 12px 24px var(--shadow-dark),
-                -12px -12px 24px var(--shadow-light);
+.deck:hover::before {
+    opacity: 1;
+    animation: spinGlow 2s linear infinite;
 }
 
 .deck::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40%;
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.4),
-        transparent
+    top: -100%;
+    left: -100%;
+    right: -100%;
+    bottom: -100%;
+    background: conic-gradient(
+        from 0deg,
+        transparent,
+        rgba(255, 255, 255, 0.4) 45deg,
+        rgba(255, 255, 255, 0.4) 90deg,
+        transparent 180deg
     );
-    border-radius: 15px 15px 0 0;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.deck:hover::before {
-    opacity: 1;
+@keyframes spinGlow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Card Animation Styles */
