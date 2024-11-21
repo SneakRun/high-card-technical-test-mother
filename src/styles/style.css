@@ -29,7 +29,6 @@
   border-radius: 15px;
   text-shadow: 1px 1px 1px var(--shadow-light),
               -1px -1px 1px var(--shadow-dark);
-  text-transform: uppercase;
   user-select: none;
 }
 
