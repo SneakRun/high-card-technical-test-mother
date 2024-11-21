@@ -235,7 +235,7 @@ body {
 /* Deck Styles */
 .deck {
     height: var(--deck-size);
-    width: calc(var(--card-size)*0.7);
+    width: var(--deck-size);
     border-radius: 15px;
     background: var(--main-bg);
     display: flex;
