@@ -16,6 +16,19 @@
   --accent-red: #db1d30;
 }
 
+/* Main Title Styles */
+.main-title {
+  font-size: 5rem;
+  font-weight: bold;
+  color: var(--card-bg);
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 15px;
+  text-shadow: 1px 1px 1px var(--shadow-light),
+              -1px -1px 1px var(--shadow-dark);
+}
+
 /* Background Animation Container */
 .background-animation {
     position: fixed;
