@@ -5,7 +5,9 @@
   "main": "cardRenderer.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "build": "mkdir -p dist && cp -r src/* dist/",
+    "dev": "http-server src"
   },
   "keywords": [],
   "author": "",
