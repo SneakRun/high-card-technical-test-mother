@@ -1,5 +1,11 @@
+/* Box Sizing */
 *, *::after, *::before {
   box-sizing: border-box;
+}
+
+/* Cursor Styles */
+* {
+  cursor: pointer;
 }
 
 /* Global Variables */
@@ -227,11 +233,10 @@ body {
 
 .score-label {
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: bold;
   text-shadow: 0.5px 0.5px 0.5px var(--shadow-light),
               -0.5px -0.5px 0.5px var(--shadow-dark);
-  text-transform: uppercase;
   user-select: none;
 }
 
@@ -408,6 +413,7 @@ body {
     color: var(--card-bg);
     text-shadow: 0.5px 0.5px 0.5px var(--shadow-light),
                 -0.5px -0.5px 0.5px var(--shadow-dark);
+    user-select: none;
 }
 
 
