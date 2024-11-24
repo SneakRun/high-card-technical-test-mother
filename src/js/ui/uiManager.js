@@ -13,6 +13,8 @@ export class UIManager {
         this.text = document.querySelector('.text');
         this.computerScoreElement = document.querySelector('.computer-score');
         this.playerScoreElement = document.querySelector('.player-score');
+        this.playerTotalWinsElement = document.querySelector('.player-total-wins');
+        this.computerTotalWinsElement = document.querySelector('.computer-total-wins');
         
         this.initializeEventListeners();
     }
@@ -23,6 +25,7 @@ export class UIManager {
         gameEvents.on(GAME_EVENTS.ROUND_END, this.handleRoundEnd.bind(this));
         gameEvents.on(GAME_EVENTS.GAME_OVER, this.handleGameOver.bind(this));
         gameEvents.on(GAME_EVENTS.SCORE_UPDATE, this.handleScoreUpdate.bind(this));
+        gameEvents.on(GAME_EVENTS.MILESTONE_REACHED, this.handleMilestoneReached.bind(this));
     }
 
     // Handle updating the UI with new card plays
@@ -84,6 +87,12 @@ export class UIManager {
     updateScoreDisplay(playerWins, computerWins) {
         this.playerScoreElement.innerText = String(playerWins);
         this.computerScoreElement.innerText = String(computerWins);
+    }
+
+    // Update the total win counts display
+    updateTotalWins(playerTotal, computerTotal) {
+        this.playerTotalWinsElement.innerText = String(playerTotal);
+        this.computerTotalWinsElement.innerText = String(computerTotal);
     }
 
     // Clear all UI elements (cards and text)
