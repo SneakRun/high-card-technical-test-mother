@@ -18,6 +18,9 @@ export class HighCardGame {
         this.playerWins = 0;           // Number of rounds won by player
         this.computerWins = 0;         // Number of rounds won by computer
         this.gameOverState = false;    // Whether the game has ended
+        this.roundCounter = 0;     // Track number of rounds played
+        this.totalPlayerWins = 0;  // Track total game wins
+        this.totalComputerWins = 0; //
     }
 
     // Set up a new game with a fresh deck
@@ -37,22 +40,26 @@ export class HighCardGame {
     // Execute one round of play
     async flipCards() {
         this.inRound = true;
+        this.roundCounter++;
+        
         const computerCard = this.computerDeck.pop();
         const playerCard = this.playerDeck.pop();
         
-        // Wait for cards to be rendered and animation to complete
         await gameEvents.emit(GAME_EVENTS.UPDATE_UI, { playerCard, computerCard });
         
-        // Determine and handle round winner
         const winner = this.declareWinner(playerCard, computerCard);
         if (winner) this.updateScore(winner);
         
-        // Check if game should end
+        // Check for round milestone (26 cards)
+        if (this.roundCounter === 26) {
+            this.handleRoundMilestone();
+            this.roundCounter = 0;  // Reset counter
+        }
+        
         if (this.isGameOver()) {
             this.gameOverState = true;
         }
         
-        // Notify UI of round result after animation
         gameEvents.emit(GAME_EVENTS.ROUND_END, { winner });
     }
 
@@ -97,4 +104,26 @@ export class HighCardGame {
             gameOverState: this.gameOverState                        // Whether game has ended
         };
     }
+
+    // Handle round milestone (26 cards)
+    handleRoundMilestone() {
+        const gameState = this.getGameState();
+        let winner = null; // Declare winner variable
+        
+        if (gameState.playerWins > gameState.computerWins) {
+            winner = 'Player';
+            this.totalPlayerWins++;
+        } else if (gameState.computerWins > gameState.playerWins) {
+            winner = 'Computer';
+            this.totalComputerWins++;
+        }
+        
+        if (winner) {
+            gameEvents.emit(GAME_EVENTS.MILESTONE_REACHED, {
+                winner,
+                totalPlayerWins: this.totalPlayerWins,
+                totalComputerWins: this.totalComputerWins
+            });
+        }
+}
 }
