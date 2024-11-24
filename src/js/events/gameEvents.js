@@ -79,7 +79,8 @@ const GAME_EVENTS = {
     ROUND_END: 'roundEnd',       // When a round of the game ends
     GAME_OVER: 'gameOver',       // When the entire game is finished
     UPDATE_UI: 'updateUI',       // When the UI needs to be updated
-    SCORE_UPDATE: 'scoreUpdate'  // When player scores change
+    SCORE_UPDATE: 'scoreUpdate',  // When player scores change
+    MILESTONE_REACHED: 'milestone-reached' // When a milestone is reached
 };
 
 export { gameEvents, GAME_EVENTS };
