@@ -45,22 +45,24 @@ export class HighCardGame {
         const computerCard = this.computerDeck.pop();
         const playerCard = this.playerDeck.pop();
         
+        // Wait for UI update
         await gameEvents.emit(GAME_EVENTS.UPDATE_UI, { playerCard, computerCard });
         
         const winner = this.declareWinner(playerCard, computerCard);
         if (winner) this.updateScore(winner);
         
-        // Check for round milestone (26 cards)
+        // Handle milestone before game over check
         if (this.roundCounter === 26) {
-            this.handleRoundMilestone();
-            this.roundCounter = 0;  // Reset counter
+            await this.handleRoundMilestone();
+            this.roundCounter = 0;
         }
         
         if (this.isGameOver()) {
             this.gameOverState = true;
         }
         
-        gameEvents.emit(GAME_EVENTS.ROUND_END, { winner });
+        // Ensure this is the last event emitted
+        await gameEvents.emit(GAME_EVENTS.ROUND_END, { winner });
     }
 
     // Compare cards to determine round winner
@@ -74,16 +76,16 @@ export class HighCardGame {
     }
 
     // Update score after a round and notify UI
-    updateScore(winner) {
+    async updateScore(winner) {
         if (winner === 'Player') this.playerWins++;
         else if (winner === 'Computer') this.computerWins++;
         const scores = { playerWins: this.playerWins, computerWins: this.computerWins };
-        gameEvents.emit(GAME_EVENTS.SCORE_UPDATE, scores);
+        await gameEvents.emit(GAME_EVENTS.SCORE_UPDATE, scores);
         return scores;
     }
 
     // Reset round state for next round
-    cleanBeforeRound() {
+    async cleanBeforeRound() {
         this.inRound = false;
     }
 
@@ -106,9 +108,9 @@ export class HighCardGame {
     }
 
     // Handle round milestone (26 cards)
-    handleRoundMilestone() {
+    async handleRoundMilestone() {
         const gameState = this.getGameState();
-        let winner = null; // Declare winner variable
+        let winner = null;
         
         if (gameState.playerWins > gameState.computerWins) {
             winner = 'Player';
@@ -119,11 +121,11 @@ export class HighCardGame {
         }
         
         if (winner) {
-            gameEvents.emit(GAME_EVENTS.MILESTONE_REACHED, {
+            await gameEvents.emit(GAME_EVENTS.MILESTONE_REACHED, {
                 winner,
                 totalPlayerWins: this.totalPlayerWins,
                 totalComputerWins: this.totalComputerWins
             });
         }
-}
+    }
 }

@@ -21,11 +21,11 @@ export class UIManager {
 
     // Set up event listeners for game events
     initializeEventListeners() {
-        gameEvents.on(GAME_EVENTS.UPDATE_UI, this.handleUpdateUI.bind(this));
-        gameEvents.on(GAME_EVENTS.ROUND_END, this.handleRoundEnd.bind(this));
-        gameEvents.on(GAME_EVENTS.GAME_OVER, this.handleGameOver.bind(this));
-        gameEvents.on(GAME_EVENTS.SCORE_UPDATE, this.handleScoreUpdate.bind(this));
-        gameEvents.on(GAME_EVENTS.MILESTONE_REACHED, this.handleMilestoneReached.bind(this));
+        gameEvents.on(GAME_EVENTS.UPDATE_UI, async (data) => await this.handleUpdateUI(data));
+        gameEvents.on(GAME_EVENTS.ROUND_END, async (data) => await this.handleRoundEnd(data));
+        gameEvents.on(GAME_EVENTS.GAME_OVER, async (data) => await this.handleGameOver(data));
+        gameEvents.on(GAME_EVENTS.SCORE_UPDATE, async (data) => await this.handleScoreUpdate(data));
+        gameEvents.on(GAME_EVENTS.MILESTONE_REACHED, async (data) => await this.handleMilestoneReached(data));
     }
 
     // Handle updating the UI with new card plays
@@ -48,22 +48,22 @@ export class UIManager {
     }
 
     // Display message when a round ends
-    handleRoundEnd({ winner }) {
+    async handleRoundEnd({ winner }) {
         this.text.innerText = winner ? `${winner} wins!` : 'Draw!';
     }
 
     // Display message when the game is over
-    handleGameOver({ winner }) {
+    async handleGameOver({ winner }) {
         this.text.innerText = `${winner} wins the game!`;
     }
 
     // Update score display when score changes
-    handleScoreUpdate({ playerWins, computerWins }) {
+    async handleScoreUpdate({ playerWins, computerWins }) {
         this.updateScoreDisplay(playerWins, computerWins);
     }
 
     // Update the displayed deck counts
-    updateDeckCount(playerCount, computerCount) {
+    async updateDeckCount(playerCount, computerCount) {
         // Update numbers
         this.computerDeckElement.innerText = String(computerCount);
         this.playerDeckElement.innerText = String(playerCount);
@@ -96,7 +96,7 @@ export class UIManager {
     }
 
     // Clear all UI elements (cards and text)
-    cleanUI() {
+    async cleanUI() {
         this.text.innerText = '';
         
         // Get all cards currently in play
