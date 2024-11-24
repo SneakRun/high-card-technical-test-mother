@@ -416,6 +416,18 @@ body {
     user-select: none;
 }
 
+.total-wins-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 1rem;
+}
+
+.player-total-wins,
+.computer-total-wins {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 
 
 
