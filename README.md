@@ -2,7 +2,7 @@
 
 INSTRUCTIONS TO PLAY:
 
-0. Run the game with live server, or by opening this link: https://673fc4eb05bc4fb45e27ff3f--sprightly-twilight-7d0532.netlify.app/
+0. Run the game with live server, or by opening this link: https://67408b8ea86847a0498a7dd9--sprightly-twilight-7d0532.netlify.app/
 
 1. Click on the screen to start the game
 2. The player and cpu will each draw a card
